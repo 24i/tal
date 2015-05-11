@@ -24,21 +24,23 @@
  * Please contact us for an alternative licence
  */
 
-require.def('antie/widgets/truncated-label',
+require.def('antie/widgets/truncatedlabel',
     [
         'antie/widgets/widget',
         'antie/widgets/label/texttruncation/truncator'
     ],
     function(Widget, Truncator) {
+        'use strict';
+
         /**
-         * The Label widget displays text. It supports auto-truncation (with ellipsis) of text to fit.
-         * @name antie.widgets.Label
+         * The TruncatedLabel widget displays text. It supports auto-truncation (with ellipsis) of text to fit.
+         * @name antie.widgets.TruncatedLabel
          * @class
          * @extends antie.widgets.Widget
          * @param {String} [id] The unique ID of the widget. If excluded, a temporary internal ID will be used (but not included in any output).
          * @param {String} [text] The text content of this label.
          */
-        var Label = Widget.extend(/** @lends antie.widgets.Label.prototype */ {
+        var TruncatedLabel = Widget.extend(/** @lends antie.widgets.TruncatedLabel.prototype */ {
             /**
              * @constructor
              * @ignore
@@ -53,7 +55,7 @@ require.def('antie/widgets/truncated-label',
                     this._text = text;
                     this._super(id);
                 }
-                this._truncationMode = Label.TRUNCATION_MODE_RIGHT_ELLIPSIS;
+                this._truncationMode = TruncatedLabel.TRUNCATION_MODE_NONE;
                 this._maxLines = null;
                 this._ellipsisText = "...";
                 this._splitAtWordBoundary = true;
@@ -72,7 +74,7 @@ require.def('antie/widgets/truncated-label',
                     this.outputElement = device.createLabel(this.id, this.getClasses(), "");
                 }
 
-                if (this._truncationMode == Label.TRUNCATION_MODE_RIGHT_ELLIPSIS) {
+                if (this._truncationMode == TruncatedLabel.TRUNCATION_MODE_RIGHT_ELLIPSIS) {
                     var self = this;
 
                     if (this._shouldUseCssForTruncation(device)) {
@@ -146,7 +148,7 @@ require.def('antie/widgets/truncated-label',
                 return this._text;
             },
             /**
-             * Sets the truncation mode (currently {@link antie.widgets.Label.TRUNCATION_MODE_NONE} or {@link antie.widgets.Label.TRUNCATION_MODE_RIGHT_ELLIPSIS}).
+             * Sets the truncation mode (currently {@link antie.widgets.TruncatedLabel.TRUNCATION_MODE_NONE} or {@link antie.widgets.TruncatedLabel.TRUNCATION_MODE_RIGHT_ELLIPSIS}).
              *
              * @param {number} mode The new truncation mode.
              */
@@ -190,35 +192,26 @@ require.def('antie/widgets/truncated-label',
              */
             useCssForTruncationIfAvailable: function(useCss) {
                 this._useCssForTruncationIfAvailable = useCss;
-            },
-            /**
-             * @Deprecated
-             * Sets the width of this label for use with truncation only.
-             * No longer needed for current method of truncation.
-             * @param {Integer} width The width of this label in pixels
-             */
-            setWidth: function(width) {
-                throw new Error("setWidth() called on Label but this method is now deprecated and has no effect.");
             }
         });
 
         /**
          * Do not truncate the text. Let the browser wrap to as many lines required to display all the text.
          * @name TRUNCATION_MODE_NONE
-         * @memberOf antie.widgets.Label
+         * @memberOf antie.widgets.TruncatedLabel
          * @constant
          * @static
          */
-        Label.TRUNCATION_MODE_NONE = 0;
+        TruncatedLabel.TRUNCATION_MODE_NONE = 0;
         /**
-         * Truncate text to fit into the number of lines specified by {@link antie.widgets.Label#setMaximumLines} by removing characters at the end of the string and append an ellipsis if text is truncated.
+         * Truncate text to fit into the number of lines specified by {@link antie.widgets.TruncatedLabel#setMaximumLines} by removing characters at the end of the string and append an ellipsis if text is truncated.
          * @constant
          * @name TRUNCATION_MODE_RIGHT_ELLIPSIS
-         * @memberOf antie.widgets.Label
+         * @memberOf antie.widgets.TruncatedLabel
          * @static
          */
-        Label.TRUNCATION_MODE_RIGHT_ELLIPSIS = 1;
+        TruncatedLabel.TRUNCATION_MODE_RIGHT_ELLIPSIS = 1;
 
-        return Label;
+        return TruncatedLabel;
     }
 );
