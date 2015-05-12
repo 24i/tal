@@ -23,13 +23,13 @@
  */
 
 (function() {
-	this.LabelTest = AsyncTestCase("Label");
+	this.TruncatedLabelTest = AsyncTestCase("Truncated Label");
 
-	this.LabelTest.prototype.setUp = function() {
+	this.TruncatedLabelTest.prototype.setUp = function() {
 		this.sandbox = sinon.sandbox.create();
 	};
 
-	this.LabelTest.prototype.tearDown = function() {
+	this.TruncatedLabelTest.prototype.tearDown = function() {
 		this.sandbox.restore();
 	};
 
@@ -44,14 +44,14 @@
     }
 
 
-	this.LabelTest.prototype.testInterface = function(queue) {
+	this.TruncatedLabelTest.prototype.testInterface = function(queue) {
 		expectAsserts(2);
 
 		queuedApplicationInit(
 			queue,
 			"lib/mockapplication",
             [
-                "antie/widgets/label",
+                "antie/widgets/truncatedlabel",
                 "antie/widgets/widget"
             ],
 			function(application, Label, Widget) {
@@ -59,13 +59,13 @@
 				assert('Label should extend from Widget', new Label() instanceof Widget);
 		});
 	};
- 	this.LabelTest.prototype.testRender = function(queue) {
+ 	this.TruncatedLabelTest.prototype.testRender = function(queue) {
 		expectAsserts(5);
 
 		queuedApplicationInit(
 				queue,
 				"lib/mockapplication",
-               ["antie/widgets/label"],
+               ["antie/widgets/truncatedlabel"],
 				function(application, Label) {
 					var widget = new Label("hello", "world");
 
@@ -80,13 +80,13 @@
 				}
 		);
 	};
- 	this.LabelTest.prototype.testSetGetText = function(queue) {
+ 	this.TruncatedLabelTest.prototype.testSetGetText = function(queue) {
 		expectAsserts(3);
 
 		queuedApplicationInit(
 				queue,
 				"lib/mockapplication",
-                ["antie/widgets/label"],
+                ["antie/widgets/truncatedlabel"],
 				function(application, Label) {
 
 					var widget1 = new Label("hello");
@@ -101,13 +101,13 @@
 		);
 	};
 
-	this.LabelTest.prototype.testTruncateTextCalledAfterTimeoutOfZeroWhenTruncationIsEnabledOnFirstRender = function(queue) {
+	this.TruncatedLabelTest.prototype.testTruncateTextCalledAfterTimeoutOfZeroWhenTruncationIsEnabledOnFirstRender = function(queue) {
 		expectAsserts(2);
 
 		queuedApplicationInit(
 				queue,
 				"lib/mockapplication",
-				["antie/widgets/label"],
+				["antie/widgets/truncatedlabel"],
 				function(application, Label) {
                     var device = application.getDevice();
                     stubDeviceConfig(this.sandbox, device, false);
@@ -125,13 +125,13 @@
 		);
 	};
 
-    this.LabelTest.prototype.testTruncateTextCalledImmediatelyWhenTruncationIsEnabledOnFutureRenders = function(queue) {
+    this.TruncatedLabelTest.prototype.testTruncateTextCalledImmediatelyWhenTruncationIsEnabledOnFutureRenders = function(queue) {
         expectAsserts(1);
 
         queuedApplicationInit(
             queue,
             "lib/mockapplication",
-            ["antie/widgets/label"],
+            ["antie/widgets/truncatedlabel"],
             function(application, Label) {
                 var device = application.getDevice();
                 stubDeviceConfig(this.sandbox, device, false);
@@ -157,13 +157,13 @@
         );
     };
 
-    this.LabelTest.prototype.testSetCssForTruncationIsCalledWhenUsingCss = function(queue) {
+    this.TruncatedLabelTest.prototype.testSetCssForTruncationIsCalledWhenUsingCss = function(queue) {
         expectAsserts(1);
 
         queuedApplicationInit(
             queue,
             "lib/mockapplication",
-            ["antie/widgets/label"],
+            ["antie/widgets/truncatedlabel"],
             function(application, Label) {
                 var device = application.getDevice();
                 stubDeviceConfig(this.sandbox, device, true);
@@ -180,13 +180,13 @@
         );
     };
 
-    this.LabelTest.prototype.testSetTruncationAlgorithmIsUsedWhenRequestingCssButDeviceDoesNotSupportIt = function(queue) {
+    this.TruncatedLabelTest.prototype.testSetTruncationAlgorithmIsUsedWhenRequestingCssButDeviceDoesNotSupportIt = function(queue) {
         expectAsserts(1);
 
         queuedApplicationInit(
             queue,
             "lib/mockapplication",
-            ["antie/widgets/label"],
+            ["antie/widgets/truncatedlabel"],
             function(application, Label) {
                 var device = application.getDevice();
                 stubDeviceConfig(this.sandbox, device, false);
@@ -206,13 +206,13 @@
         );
     };
 
-    this.LabelTest.prototype.testExceptionThrownWhenTryingToUseCssWithoutSpecifyingNumberOfLines = function(queue) {
+    this.TruncatedLabelTest.prototype.testExceptionThrownWhenTryingToUseCssWithoutSpecifyingNumberOfLines = function(queue) {
         expectAsserts(1);
 
         queuedApplicationInit(
             queue,
             "lib/mockapplication",
-            ["antie/widgets/label"],
+            ["antie/widgets/truncatedlabel"],
             function(application, Label) {
                 var device = application.getDevice();
                 stubDeviceConfig(this.sandbox, device, true);
@@ -229,13 +229,13 @@
         );
     };
 
-    this.LabelTest.prototype.testExceptionThrownWhenTryingToUseCssWithTheTruncateAtWordBoundarySet = function(queue) {
+    this.TruncatedLabelTest.prototype.testExceptionThrownWhenTryingToUseCssWithTheTruncateAtWordBoundarySet = function(queue) {
         expectAsserts(1);
 
         queuedApplicationInit(
             queue,
             "lib/mockapplication",
-            ["antie/widgets/label"],
+            ["antie/widgets/truncatedlabel"],
             function(application, Label) {
                 var device = application.getDevice();
                 stubDeviceConfig(this.sandbox, device, true);
