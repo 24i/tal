@@ -47,9 +47,11 @@ require.def(
         var Player = HTML5MediaPlayer.extend( /** @lends antie.devices.mediaplayer.HTML5NoEnterBufferingSentinel.prototype */ {
             init: function() {
                 this._super();
+            },
+
+            _enterBufferingSentinel: function() {
+                return false;
             }
-
-
         });
 
         var instance = new Player();

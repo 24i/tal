@@ -23,7 +23,7 @@
  */
 
 (function() {
-    // jshint newcap: false
+
     this.HTML5NoEnterBufferingSentinelTests = AsyncTestCase("HTML5NoEnterBufferingSentinelMediaPlayer");
 
     var config = {"modules":{"base":"antie/devices/browserdevice","modifiers":["antie/devices/mediaplayer/html5noenterbufferingsentinel"]}, "input":{"map":{}},"layouts":[{"width":960,"height":540,"module":"fixtures/layouts/default","classes":["browserdevice540p"]}],"deviceConfigurationKey":"devices-html5-1"};
@@ -37,8 +37,26 @@
     // Remove tests that are irrelevant for this sub-modifier.
     // ---------------
 
+    delete this.HTML5NoEnterBufferingSentinelTests.prototype.testEnterBufferingSentinelCausesTransitionToBufferingWhenPlaybackHaltsForMoreThanOneSentinelIterationSinceStateChanged;
     // ---------------
     // Additional tests for this sub-modifier.
     // ---------------
 
+    // Sentinels
+    this.HTML5NoEnterBufferingSentinelTests.prototype.testEnterBufferingSentinelIsNotFired = function(queue) {
+        expectAsserts(3);
+        this.runMediaPlayerTest(this, queue, function (MediaPlayer) {
+            this.getToPlaying(this, MediaPlayer);
+            this.advancePlayTime(this);
+            this.advancePlayTime(this);
+
+            this.clearEvents(this);
+            this.fireSentinels(this);
+            this.fireSentinels(this);
+
+            this.assertNoEvent(this, MediaPlayer.EVENT.SENTINEL_ENTER_BUFFERING);
+            this.assertNoEvent(this, MediaPlayer.EVENT.BUFFERING);
+            this.assertState(this, MediaPlayer.STATE.PLAYING);
+        });
+    };
 })();
